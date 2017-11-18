@@ -1,19 +1,19 @@
-import click
 import os
+import click
+import shutil
 from os.path import isfile
-from shutil import copy, copytree, rmtree
 
 
 @click.command()
-@click.option('--copy', '-cp', multiple=True, nargs=2,help="The equivelent of the linux command cp.")
-@click.option('--remove', '-rm', multiple=True, nargs=1,help="The equivelent of the linux command rm.")
+@click.option('--copy', nargs=2,help="The equivelent of the linux command cp.")
+@click.option('--remove', nargs=1,help="The equivelent of the linux command rm.")
 @click.option('--mkdir', nargs=1,help="The equivelent of the linux command mkdir.")
 def cli(copy, remove, mkdir):
     if copy:
-        _from = copy[0][0]
-        _to = copy[0][1]
-        copy(_from, _to) if isfile(_from) else copytree(_from, _to)
+        src = copy[0]
+        dest = copy[1]
+        shutil.copy(src, dest) if isfile(src) else shutil.copytree(src, dest)
     if remove:
-        os.remove(remove[0]) if isfile(remove[0]) else rmtree(remove[0])
+        os.remove(remove) if isfile(remove) else shutil.rmtree(remove)
     if mkdir:
         os.mkdir(mkdir)

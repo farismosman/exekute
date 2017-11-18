@@ -1,8 +1,9 @@
 import click
-import shutil
+from shutil import copy, copytree
+from os.path import isfile
 
 def copy_files(_from, _to):
-    shutil.copy(_from, _to)
+    copy(_from, _to) if isfile(_from) else copytree(_from, _to)
 
 @click.command()
 @click.option('--copy', '-cp', multiple=True, nargs=2,

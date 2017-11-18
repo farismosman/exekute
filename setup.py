@@ -6,6 +6,7 @@ setup(
     py_modules=['exekute'],
     install_requires=[
         'Click',
+        'shutil'
     ],
     entry_points='''
         [console_scripts]
